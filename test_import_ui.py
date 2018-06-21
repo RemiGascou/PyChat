@@ -1,13 +1,17 @@
 import sys
-from PyQt4 import QtGui, uic
+from PyQt5 import uic
+from PyQt5.QtWidgets import QApplication, QWidget, QMainWindow
+from PyQt5.QtGui import QIcon
 
-class MyWindow(QtGui.QMainWindow):
+basepath = "/home/tux/Documents/git_projects/PyChat/"
+
+class App(QMainWindow):
     def __init__(self):
-        super(MyWindow, self).__init__()
-        uic.loadUi('mywindow.ui', self)
+        super(App, self).__init__()
+        uic.loadUi(basepath + 'ui/MainWindow.ui', self)
         self.show()
 
 if __name__ == '__main__':
-    app = QtGui.QApplication(sys.argv)
-    window = MyWindow()
+    app = QApplication(sys.argv)
+    ex = App()
     sys.exit(app.exec_())

@@ -14,10 +14,9 @@ class ClientThread(Thread):
 
     def run(self): 
         print("Connection de %s %s" % (self.ip, self.port, ))
-        #r = self.clientsocket.recv(2048)
-        mystring = "Hello <3"
-        print("Sending welcome")
-        self.clientsocket.send(bytes(mystring, 'utf-8'))
+        while True:
+            r = self.clientsocket.recv(2048)
+            if len(r) != 0 : self.clientsocket.send(r)
         print("Client déconnecté...")
 
 tcpsock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
