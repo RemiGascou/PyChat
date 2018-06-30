@@ -1,12 +1,12 @@
 import sys
 from lib.core import PyChatInfos
 from lib.ui import *
+from lib.ui.TabsManager import *
 from PyQt5.QtWidgets import *
 from PyQt5.QtGui import *
 from PyQt5.QtCore import *
 
 class PyChatApp(QMainWindow):
-
     def __init__(self):
         super().__init__()
         self.title  = PyChatInfos.get_name() + " " + PyChatInfos.get_version()
@@ -20,7 +20,9 @@ class PyChatApp(QMainWindow):
         self.setWindowTitle(self.title)
         self.setGeometry(self.left, self.top, self.width, self.height)
         self.setAttribute(Qt.WA_DeleteOnClose)
-        self._init_menu()        
+        self._init_menu()    
+        self.table_widget = TabsManager(self)
+        self.setCentralWidget(self.table_widget)    
         self.show()
 
     def _init_menu(self):

@@ -1,25 +1,7 @@
-#https://pythonspot.com/pyqt5-tabs/
-
-import sys
 from PyQt5.QtWidgets import *
 from PyQt5.QtGui import *
 from PyQt5.QtCore import *
- 
-class App(QMainWindow):
-    def __init__(self):
-        super().__init__()
-        self.title = 'TabManager'
-        self.left   = 0
-        self.top    = 0
-        self.width  = 300
-        self.height = 200
-        self.setWindowTitle(self.title)
-        self.setAttribute(Qt.WA_DeleteOnClose)
-        self.setGeometry(self.left, self.top, self.width, self.height)
-        self.table_widget = TabsManager(self)
-        self.setCentralWidget(self.table_widget)
-        self.show()
- 
+
 class TabsManager(QWidget):        
     def __init__(self, parent):   
         super(QWidget, self).__init__(parent)
@@ -29,8 +11,8 @@ class TabsManager(QWidget):
         self.tabs.resize(300,200) 
         # Add tabs
         self._init_home_tab()
-        self._init_closable_tab()
-        self._init_chatbox_tab()
+        #self._init_closable_tab()
+        #self._init_chatbox_tab()
         # Add tabs to widget        
         self.layout.addWidget(self.tabs)
         self.setLayout(self.layout)
@@ -70,8 +52,3 @@ class TabsManager(QWidget):
     @pyqtSlot()
     def on_click(self):
         print("Clicked !")
- 
-if __name__ == '__main__':
-    app = QApplication(sys.argv)
-    ex = App()
-    sys.exit(app.exec_())
