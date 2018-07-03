@@ -6,5 +6,5 @@ from lib import *
 
 if __name__ == """__main__""":
     app = QApplication(sys.argv)
-    ex = PyChatApp.PyChatApp()
+    ex = PyChatApp()
     sys.exit(app.exec_())

@@ -18,9 +18,9 @@ class First(QMainWindow):
         self.pushButton = QPushButton("click me")
         self.setCentralWidget(self.pushButton)
         self.pushButton.clicked.connect(self.on_pushButton_clicked)
-        self.dialog = Second(self)
 
     def on_pushButton_clicked(self):
+        self.dialog = Second(self)
         self.dialog.show()
 
 

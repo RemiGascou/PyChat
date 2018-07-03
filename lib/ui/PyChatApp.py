@@ -1,6 +1,7 @@
 import sys
 from lib.core import PyChatInfos
-from lib.ui.widgets.TabsManager import *
+from lib.ui.windows import *
+from lib.ui.widgets import *
 from PyQt5.QtWidgets import *
 from PyQt5.QtGui import *
 from PyQt5.QtCore import *
@@ -32,10 +33,10 @@ class PyChatApp(QMainWindow):
     def _init_tabs(self):
         self.table_widget = TabsManager(self)
         self.setCentralWidget(self.table_widget)
-        
+
     def _init_menu(self):
         mainMenu      = self.menuBar()
-        appMenu       = mainMenu.addMenu('PyChat')
+        appMenu       = mainMenu.addMenu(PyChatInfos.get_name())
         clientMenu    = mainMenu.addMenu('Client')
         serverMenu    = mainMenu.addMenu('Server')
         settingsMenu  = mainMenu.addMenu('Settings')
@@ -61,17 +62,23 @@ class PyChatApp(QMainWindow):
         viewButton = QAction('View', self)
         viewButton.triggered.connect(self.close)
         settingsMenu.addAction(exitButton)
-        
+
         #helpMenu buttons
         aboutButton = QAction('About', self)
-        #aboutButton.triggered.connect(AboutWindow.AboutWindow()) #BUG
+        aboutButton.triggered.connect(self.start_AboutWindow)
         helpMenu.addAction(aboutButton)
-        
+
         debugButton = QAction('Debug', self)
         #debugButton.triggered.connect(DebugWindow.DebugWindow()) #BUG
         helpMenu.addAction(debugButton)
 
-    
+    def start_AboutWindow(self):
+        self.wAboutWindow = AboutWindow(self)
+        self.wAboutWindow.show()
+
+    def start_DebugWindow(self):
+        self.wDebugWindow = DebugWindow(self)
+        self.wDebugWindow.show()
 
     def closeEvent(self, event):
         quit_msg = "Are you sure you want to exit the program?"
