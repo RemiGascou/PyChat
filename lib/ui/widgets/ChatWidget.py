@@ -6,7 +6,7 @@ from PyQt5.QtWidgets import *
 class App(QMainWindow):
     def __init__(self):
         super().__init__()
-        self.title = 'TabManager'
+        self.title = 'ChatWidget'
         self.left   = 0
         self.top    = 0
         self.width  = 300
@@ -20,39 +20,46 @@ class App(QMainWindow):
         qtRectangle.moveCenter(centerPoint)
         self.move(qtRectangle.topLeft())
         #EndTrick
-        self.table_widget = ChatWidget(self)
-        self.setCentralWidget(self.table_widget)
+        self.chatwidget = ChatWidget(self)
+        self.setCentralWidget(self.chatwidget)
         self.show()
 
 class ChatWidget(QWidget):
     def __init__(self, parent):
         super(ChatWidget, self).__init__(parent)
         self._initUI()
+        self.show()
 
     def _initUI(self):
-        hbox = QHBoxLayout(self)
-        chatBox_frame = QFrame(self)
-        chatBox_frame.setFrameShape(QFrame.StyledPanel)
-        chatBox_text = QTextEdit(chatBox_frame)
+        pass
 
-        inputBox_frame = QFrame()
-        inputBox_frame.setFrameShape(QFrame.StyledPanel)
-        inputBox_text = QTextEdit()
-        submitButton = QPushButton('Submit')
 
-        mainSplitter = QSplitter(hbox, Qt.Vertical)
-        mainSplitter.addWidget(chatBox_frame)
-        mainSplitter.addWidget(inputBox_frame)
-        mainSplitter.setSizes([100,200])
-
-        inputBox_splitter = QSplitter(mainSplitter, Qt.Horizontal)
-        inputBox_splitter.addWidget(inputBox_text)
-        inputBox_splitter.addWidget(submitButton)
-        inputBox_splitter.setSizes([100,200])
-
-        hbox.addWidget(mainSplitter)
-        self.setLayout(hbox)
-        self.show()
+    # def _initUI(self):
+    #     hbox = QHBoxLayout(self)
+    #     chatBox_frame = QFrame(self)
+    #     chatBox_frame.setFrameShape(QFrame.StyledPanel)
+    #     chatBox_text = QTextEdit(self)
+    #     #chatBox_frame.setCentralWidget(chatBox_text)
+    #
+    #     inputBox_frame = QFrame(self)
+    #     inputBox_frame.setFrameShape(QFrame.StyledPanel)
+    #
+    #     mainSplitter = QSplitter(Qt.Vertical)
+    #     mainSplitter.addWidget(chatBox_frame)
+    #     mainSplitter.addWidget(inputBox_frame)
+    #     mainSplitter.setSizes([300,50])
+    #
+    #     inputBox_splitter = QSplitter(Qt.Horizontal)
+    #     inputBox_text = QTextEdit(self)
+    #     inputBox_splitter.addWidget(inputBox_text)
+    #     submitButton = QPushButton('Submit')
+    #     inputBox_splitter.addWidget(submitButton)
+    #     #inputBox_splitter.setSizes([100,200])
+    #
+    #     hbox.addWidget(mainSplitter)
+    #     self.setLayout(hbox)
+    #     self.show()
+    #     https://www.tutorialspoint.com/pyqt/pyqt_qboxlayout_class.htm
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)
