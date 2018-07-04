@@ -14,7 +14,6 @@ from PyQt5.QtWidgets import *
 from PyQt5.QtGui import *
 from PyQt5.QtCore import *
 
-
 class DebugWindow(QWidget):
     def __init__(self, parent=None):
         super().__init__()
@@ -22,14 +21,12 @@ class DebugWindow(QWidget):
         self.show()
 
     def _initUI(self):
-        self.label = QLabel("<b>" + PyChatInfos.get_name() + " " + PyChatInfos.get_version() + " </b><br><br>" + PyChatInfos.get_credits(), self)
-        self.label.setAlignment(Qt.AlignCenter)
         #self.label.setStyleSheet("QLabel {background-color: red;}")
         self.layout = QGridLayout()
         self.layout.addWidget(self.label, 0, 0)
         self.setLayout(self.layout)
         self.setGeometry(300, 300, 300, 100)
-        self.setWindowTitle('About')
+        self.setWindowTitle('Debug')
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)

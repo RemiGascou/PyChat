@@ -13,9 +13,7 @@ class App(QMainWindow):
         self.buffer = ''
         
         self.clear_button = QPushButton('Clear Log', parent=self)
-        self.clear_button.clicked.connect(self.clear_log)
         self.save_button = QPushButton('Save Log As...', parent=self)
-        self.save_button.clicked.connect(self.save_log)
         
         self.lay = QVBoxLayout(self)
         self.lay.addWidget(self.logger)

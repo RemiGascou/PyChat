@@ -6,7 +6,7 @@ from PyQt5.QtWidgets import *
 class App(QMainWindow):
     def __init__(self):
         super().__init__()
-        self.title = 'ChatWidget'
+        self.title = 'ChatBoxWidget'
         self.left   = 0
         self.top    = 0
         self.width  = 300
@@ -20,18 +20,35 @@ class App(QMainWindow):
         qtRectangle.moveCenter(centerPoint)
         self.move(qtRectangle.topLeft())
         #EndTrick
-        self.chatwidget = ChatWidget(self)
+        self.chatwidget = ChatBoxWidget(self)
         self.setCentralWidget(self.chatwidget)
         self.show()
 
-class ChatWidget(QWidget):
+class ChatBoxWidget(QWidget):
     def __init__(self, parent):
-        super(ChatWidget, self).__init__(parent)
+        super(ChatBoxWidget, self).__init__(parent)
+        #Load Stylesheet from "ChatBoxWidget.css"
+        f = open("lib/ui/widgets/styles/ChatBoxWidget.css",'r')
+        stylesheet = "".join(f.readlines())
+        f.close()
+        self.setStyleSheet(stylesheet)
+        #EndLoad
         self._initUI()
         self.show()
 
     def _initUI(self):
-        pass
+        chatBox_text = QPlainTextEdit(parent=self)
+        chatBox_text.setReadOnly(True)
+        for _ in range(20):
+            chatBox_text.appendHtml("<b>Heyyy ! Line : </b>" + str(_))
+        chatBox_text.appendHtml("Smiley test ! &#9762; &#9749;")
+
+    @pyqtSlot()
+    def addText(self):
+        chatBox_text.appendHtml("Smiley test ! &#9762; &#9749;")
+
+
+
 
 
     # def _initUI(self):
@@ -58,7 +75,6 @@ class ChatWidget(QWidget):
     #
     #     hbox.addWidget(mainSplitter)
     #     self.setLayout(hbox)
-    #     self.show()
     #     https://www.tutorialspoint.com/pyqt/pyqt_qboxlayout_class.htm
 
 if __name__ == '__main__':

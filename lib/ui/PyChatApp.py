@@ -69,7 +69,7 @@ class PyChatApp(QMainWindow):
         helpMenu.addAction(aboutButton)
 
         debugButton = QAction('Debug', self)
-        #debugButton.triggered.connect(DebugWindow.DebugWindow()) #BUG
+        debugButton.triggered.connect(self.start_DebugWindow)
         helpMenu.addAction(debugButton)
 
     def start_AboutWindow(self):
