@@ -40,8 +40,6 @@ class TabsManager(QWidget):
         self.tabs.setStyleSheet(stylesheet)
         # Add tabs
         self._init_home_tab()
-        self._init_closable_tab()
-        self._init_chat_tab()
         # Add tabs to widget
         self.layout.addWidget(self.tabs)
         self.setLayout(self.layout)
@@ -52,19 +50,18 @@ class TabsManager(QWidget):
         self.pushButton1 = QPushButton("PyQt5 button")
         self.pushButton1.clicked.connect(self.on_click)
         self.hometab.layout.addWidget(self.pushButton1)
-        
+        self._init_tabbar(0)
+        self.hometab.setLayout(self.hometab.layout)
+        self.tabs.addTab(self.hometab,"Home")
+
+    def _init_tabbar(self, k):
         tabBar = self.tabs.tabBar()
         closeButton = QPushButton()
         closeButton.setGeometry(0,0,20,20)
         closeButton.setIcon(QIcon('./cross.png'))
         closeButton.setIconSize(QSize(15,15))
         closeButton.clicked.connect(self.tabCloseRequest)
-        tabBar.setTabButton(0, QTabBar.RightSide, closeButton)
-        self.hometab.setLayout(self.hometab.layout)
-        self.tabs.addTab(self.hometab,"Chat")
-        
-        self.hometab.setLayout(self.hometab.layout)
-        self.tabs.addTab(self.hometab,"Home")
+        tabBar.setTabButton(k, QTabBar.RightSide, closeButton)
 
     def _init_chat_tab(self):
         self.chattab = QWidget()
@@ -105,6 +102,8 @@ class TabsManager(QWidget):
     @pyqtSlot()
     def on_click(self):
         print("Clicked !")
+        self._init_home_tab()
+        
 
     @pyqtSlot()
     def tabCloseRequest(self):

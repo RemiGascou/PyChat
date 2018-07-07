@@ -34,11 +34,19 @@ class ChatBoxWidget(QWidget):
         self.setStyleSheet(stylesheet)
         #EndLoad
         self._initUI()
+        sizePolicy = QSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
+        self.setSizePolicy(sizePolicy)
+        self.resize(QSize(100,500))
         self.show()
 
     def _initUI(self):
         chatBox_text = QPlainTextEdit(parent=self)
         chatBox_text.setReadOnly(True)
+        sizePolicy = QSizePolicy(QSizePolicy.Preferred, QSizePolicy.Preferred)
+        sizePolicy.setHorizontalStretch(0)
+        sizePolicy.setVerticalStretch(0)
+        sizePolicy.setHeightForWidth(chatBox_text.sizePolicy().hasHeightForWidth())
+        chatBox_text.setSizePolicy(sizePolicy)
         for _ in range(20):
             chatBox_text.appendHtml("<b>Heyyy ! Line : </b>" + str(_))
         chatBox_text.appendHtml("Smiley test ! &#9762; &#9749;")
