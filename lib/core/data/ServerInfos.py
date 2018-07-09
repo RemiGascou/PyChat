@@ -39,6 +39,12 @@ class ServerInfos(object):
             header = json.dumps(self.data, encoding="utf-8", sort_keys=True, separators=(',', ': '))
         return header
 
+    def importConf(self):
+        pass
+
+    def exportConf(self):
+        pass
+
     #Get Set s
     def get_name(self):
     	return self.name
