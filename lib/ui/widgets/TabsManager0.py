@@ -39,48 +39,81 @@ class TabsManager(QWidget):
         f.close()
         #EndLoad
         self.tabsWidget.setStyleSheet(stylesheet)
+        self.tabsBarWidget = self.tabsWidget.tabBar()
+        self.tabsBarWidget.setTabsClosable(True)
+        self.tabsBarWidget.tabCloseRequested.connect(self.tabCloseRequested)
+
         # Add tabs
         self._init_home_tab()
+        for k in range(1, 10):
+            self._init_welcome_tab("Welcome"+str(k))
         self._updatetabs()
+        self._listtabs()
         # Add tabs to widget
         self.layout.addWidget(self.tabsWidget)
         self.setLayout(self.layout)
 
-    def _init_home_tab(self):
+    def _init_home_tab(self, title = "Home"):
         self.hometab = QWidget()
-        title = "Home"
         self.hometab.layout = QVBoxLayout(self.hometab)
-        self.pushButton1 = QPushButton("PyQt5 button")
-        self.pushButton1.clicked.connect(self.on_click)
-        self.hometab.layout.addWidget(self.pushButton1)
+        self.closeTabPB = QPushButton("Close Tab")
+        self.closeTabPB.clicked.connect(self.on_click_close_tab)
+        self.hometab.layout.addWidget(self.closeTabPB)
+        self.addTabPB = QPushButton("Add Tab")
+        self.addTabPB.clicked.connect(self._addTab)
+        self.hometab.layout.addWidget(self.addTabPB)
         self.hometab.setLayout(self.hometab.layout)
-        #self.tabsWidget.addTab(self.hometab,"Home")
         tabdata = {
             "object": self.hometab,
             "title": title
         }
         self.tabs.append(tabdata)
 
+    def _init_welcome_tab(self, title="Welcome"):
+        self.welcometab = QWidget()
+        tabdata = {
+            "object": self.welcometab,
+            "title": title
+        }
+        self.tabs.append(tabdata)
+
     def _updatetabs(self):
+        self.tabsWidget.clear()
         for tab in self.tabs:
             self.tabsWidget.addTab(tab["object"],tab["title"])
-        pass
 
-    def deteteTabById(self, id):
-        pass
+    def _listtabs(self):
+        _=0
+        for tab in self.tabs:
+            print("Tab @[id=" + str(_) + "] : " + tab["title"])
+            _+=1
 
-    def addTabById(self, id):
-        pass
+    def _deteteTabById(self, id):
+        if id >= 0 and id < len(self.tabs):
+            del self.tabs[id]
+        else :
+            return -1
+        self._listtabs()
+        self._updatetabs()
+
+    def _addTab(self):
+        self._init_home_tab("Added "+str(len(self.tabs)))
+        self._listtabs()
+        self._updatetabs()
 
     @pyqtSlot()
-    def on_click(self):
+    def on_click_close_tab(self):
         print("Clicked !")
-        self._init_home_tab()
+        self._deteteTabById(1)
 
 
-    @pyqtSlot()
-    def tabCloseRequest(self):
-        print("tabCloseRequest !")
+    def tabCloseRequested(self,index):
+        print("tabCloseRequested !")
+        widget = self.tabsWidget.widget(index)
+        if widget is not None:
+            widget.deleteLater()
+        self.tabsWidget.removeTab(index)
+        self._deteteTabById(index)
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)

@@ -31,8 +31,8 @@ class PyChatApp(QMainWindow):
         self.show()
 
     def _init_tabs(self):
-        self.table_widget = TabsManager(self)
-        self.setCentralWidget(self.table_widget)
+        self.tabsmanager = TabsManager(self)
+        self.setCentralWidget(self.tabsmanager)
 
     def _init_menu(self):
         mainMenu      = self.menuBar()
@@ -88,6 +88,10 @@ class PyChatApp(QMainWindow):
             event.accept()
         else:
             event.ignore()
+    
+    @pyqtSlot()
+    def testEvent(self):
+        self.tabsmanager.on_click_close_tab()
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)

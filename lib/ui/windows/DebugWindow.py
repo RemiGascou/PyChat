@@ -17,16 +17,26 @@ from PyQt5.QtCore import *
 class DebugWindow(QWidget):
     def __init__(self, parent=None):
         super().__init__()
+        self.setGeometry(300, 300, 300, 100)
+        self.setWindowTitle('About')
         self._initUI()
         self.show()
 
     def _initUI(self):
-        #self.label.setStyleSheet("QLabel {background-color: red;}")
-        self.layout = QGridLayout()
-        self.layout.addWidget(self.label, 0, 0)
+        self.layout = QFormLayout()
+        self.pushbutton_addtab = QPushButton("Add Tab")
+        self.pushbutton_addtab.clicked.connect(self.none)
+        self.layout.addRow("Add Tab", self.pushbutton_addtab)
+        self.pushbutton_deltab = QPushButton("Del Tab")
+        self.pushbutton_deltab.clicked.connect(self.none)
+        self.layout.addRow("Del Tab", self.pushbutton_deltab)
         self.setLayout(self.layout)
         self.setGeometry(300, 300, 300, 100)
-        self.setWindowTitle('Debug')
+        self.setWindowTitle('Connect')
+    
+    @pyqtSlot()
+    def none(self):
+        pass
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)
