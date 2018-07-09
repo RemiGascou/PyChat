@@ -30,73 +30,40 @@ class TabsManager(QWidget):
         super(TabsManager, self).__init__(parent)
         self.layout = QVBoxLayout(self)
         # Initialize tab screen
-        self.tabs = QTabWidget()
-        self.tabs.resize(300,200)
+        self.tabs = []
+        self.tabsWidget = QTabWidget()
+        self.tabsWidget.resize(300,200)
         #Load Stylesheet from "TabsManager.css"
         f = open("lib/ui/widgets/styles/TabsManager.css",'r')
         stylesheet = "".join(f.readlines())
         f.close()
         #EndLoad
-        self.tabs.setStyleSheet(stylesheet)
+        self.tabsWidget.setStyleSheet(stylesheet)
         # Add tabs
         self._init_home_tab()
+        self._updatetabs()
         # Add tabs to widget
-        self.layout.addWidget(self.tabs)
+        self.layout.addWidget(self.tabsWidget)
         self.setLayout(self.layout)
 
     def _init_home_tab(self):
         self.hometab = QWidget()
+        title = "Home"
         self.hometab.layout = QVBoxLayout(self.hometab)
         self.pushButton1 = QPushButton("PyQt5 button")
         self.pushButton1.clicked.connect(self.on_click)
         self.hometab.layout.addWidget(self.pushButton1)
-        self._init_tabbar(0)
         self.hometab.setLayout(self.hometab.layout)
-        self.tabs.addTab(self.hometab,"Home")
-
-    def _init_tabbar(self, k):
-        tabBar = self.tabs.tabBar()
-        closeButton = QPushButton()
-        closeButton.setGeometry(0,0,20,20)
-        closeButton.setIcon(QIcon('./cross.png'))
-        closeButton.setIconSize(QSize(15,15))
-        closeButton.clicked.connect(self.tabCloseRequest)
-        tabBar.setTabButton(k, QTabBar.RightSide, closeButton)
-
-    def _init_chat_tab(self):
-        self.chattab = QWidget()
-        self.chattab.layout = QGridLayout()
-        self.chattab.layout.setSpacing(5)
-        chatBox = ChatBoxWidget(self.chattab)
-        inputBox = InputBoxWidget(self.chattab)
-        self.chattab.layout.addWidget(chatBox, 1, 0)
-        self.chattab.layout.addWidget(inputBox, 2, 0)
-
-        tabBar = self.tabs.tabBar()
-        closeButton = QPushButton()
-        closeButton.setGeometry(0,0,20,20)
-        closeButton.setIcon(QIcon('./cross.png'))
-        closeButton.setIconSize(QSize(15,15))
-        closeButton.clicked.connect(self.tabCloseRequest)
-        tabBar.setTabButton(0, QTabBar.RightSide, closeButton)
-        self.chattab.setLayout(self.chattab.layout)
-        self.tabs.addTab(self.chattab,"Chat")
-
-    def _init_blank_tab(self):
-        self.blanktab = QWidget()
-        self.tabs.addTab(self.blanktab,"Blank")
-
-    def _init_closable_tab(self):
-        self.blanktab = QWidget()
-        tabBar = self.tabs.tabBar()
-        closeButton = QPushButton()
-        closeButton.setGeometry(0,0,20,20)
-        closeButton.setIcon(QIcon('./cross.png'))
-        closeButton.setIconSize(QSize(15,15))
-        closeButton.clicked.connect(self.tabCloseRequest)
-        tabBar.setTabButton(0, QTabBar.RightSide, closeButton)
+        #self.tabsWidget.addTab(self.hometab,"Home")
+        tabdata = {
+            "object": self.hometab,
+            "title": title
+        }
+        self.tabs.append(tabdata)
 
     def _updatetabs(self):
+        for tab in self.tabs:
+            self.tabsWidget.addTab(tab["object"],tab["title"])
         pass
 
     def deteteTabById(self, id):
