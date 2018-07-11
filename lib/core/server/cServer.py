@@ -3,7 +3,7 @@ from threading import *
 from lib.core.data import *
 
 class ClientThread(Thread):
-    """docstring for Server."""
+    """docstring for ClientThread."""
     def __init__(self, ip, port, clientsocket):
         Thread.__init__(self)
         self.ip     = ip
@@ -23,11 +23,10 @@ class ClientThread(Thread):
 class Server(Thread):
     """docstring for Server."""
     def __init__(self, data:ServerInfos):
+        Thread.__init__(self)
         if type(data) == "<class ServerInfos>":
-            Thread.__init__(self)
             #super(Server, self).__init__()
-            self.arg = arg
-        return -1
+            self.data = data
 
     def run(self):
         sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
@@ -42,5 +41,7 @@ class Server(Thread):
             newthread.start()
 
 if __name__ == """__main__""":
-    s = Server()
-    print(s)
+    si = ServerInfos()
+    serverthread = Server(si)
+    print(si)
+    serverthread.start()

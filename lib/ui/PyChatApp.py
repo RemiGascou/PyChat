@@ -7,8 +7,9 @@ from PyQt5.QtGui import *
 from PyQt5.QtCore import *
 
 class PyChatApp(QMainWindow):
-    def __init__(self):
-        super().__init__()
+    def __init__(self, parent=None):
+        print("[LOG] Parent of PyChatApp", parent)
+        super(PyChatApp, self).__init__()
         self.title  = PyChatInfos.get_name() + " " + PyChatInfos.get_version()
         self.left   = 10
         self.top    = 10
@@ -53,10 +54,13 @@ class PyChatApp(QMainWindow):
         connectButton = QAction('Connect', self)
         connectButton.setShortcut('Ctrl+N')
         #connectButton.setStatusTip('Connect to a Server')
-        connectButton.triggered.connect(self.close)
+        connectButton.triggered.connect(self.start_ClientConnectWindow)
         clientMenu.addAction(connectButton)
 
         #serverMenu buttons
+        createServerButton = QAction('Create Server', self)
+        createServerButton.triggered.connect(self.start_ServerCreateWindow)
+        serverMenu.addAction(createServerButton)
 
         #settingsMenu buttons
         viewButton = QAction('View', self)
@@ -67,7 +71,7 @@ class PyChatApp(QMainWindow):
         aboutButton = QAction('About', self)
         aboutButton.triggered.connect(self.start_AboutWindow)
         helpMenu.addAction(aboutButton)
-
+        helpMenu.addSeparator()
         debugButton = QAction('Debug', self)
         debugButton.triggered.connect(self.start_DebugWindow)
         helpMenu.addAction(debugButton)
@@ -80,6 +84,14 @@ class PyChatApp(QMainWindow):
         self.wDebugWindow = DebugWindow(self)
         self.wDebugWindow.show()
 
+    def start_ClientConnectWindow(self):
+        self.wClientConnectWindow = ClientConnectWindow(self)
+        self.wClientConnectWindow.show()
+
+    def start_ServerCreateWindow(self):
+        self.wServerCreateWindow = ServerCreateWindow(self)
+        self.wServerCreateWindow.show()
+
     def closeEvent(self, event):
         quit_msg = "Are you sure you want to exit the program?"
         reply = QMessageBox.question(self, 'Exit Confirmation',
@@ -88,7 +100,7 @@ class PyChatApp(QMainWindow):
             event.accept()
         else:
             event.ignore()
-    
+
     @pyqtSlot()
     def testEvent(self):
         self.tabsmanager.on_click_close_tab()

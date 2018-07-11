@@ -16,7 +16,8 @@ from PyQt5.QtCore import *
 
 class DebugWindow(QWidget):
     def __init__(self, parent=None):
-        super().__init__()
+        print("[LOG] Parent of DebugWindow", parent)
+        super(DebugWindow, self).__init__()
         self.setGeometry(300, 300, 300, 100)
         self.setWindowTitle('About')
         self._initUI()
@@ -33,7 +34,7 @@ class DebugWindow(QWidget):
         self.setLayout(self.layout)
         self.setGeometry(300, 300, 300, 100)
         self.setWindowTitle('Connect')
-    
+
     @pyqtSlot()
     def none(self):
         pass

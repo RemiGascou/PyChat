@@ -17,14 +17,22 @@ from PyQt5.QtCore import *
 
 class AboutWindow(QWidget):
     def __init__(self, parent=None):
-        super().__init__()
+        print("[LOG] Parent of AboutWindow", parent)
+        super(AboutWindow, self).__init__()
+        self.title = 'AboutWindow'
+        self.left   = 0
+        self.top    = 0
+        self.width  = 300
+        self.height = 200
+        self.setWindowTitle(self.title)
+        self.setAttribute(Qt.WA_DeleteOnClose)  #Kill application on close
+        self.setGeometry(self.left, self.top, self.width, self.height)
         self._initUI()
         self.show()
 
     def _initUI(self):
         self.label = QLabel("<b>" + PyChatInfos.get_name() + " " + PyChatInfos.get_version() + " </b><br><br>" + PyChatInfos.get_credits(), self)
         self.label.setAlignment(Qt.AlignCenter)
-        #self.label.setStyleSheet("QLabel {background-color: red;}")
         self.layout = QGridLayout()
         self.layout.addWidget(self.label, 0, 0)
         self.setLayout(self.layout)

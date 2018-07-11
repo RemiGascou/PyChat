@@ -9,15 +9,15 @@ Author: Remi GASCOU
 Last edited: July 2018
 """
 
-class ServerInfos(object):
+class ServerInfos():
     """docstring for ServerInfos."""
-    def __init__(self, arg):
+    def __init__(self):
         super(ServerInfos, self).__init__()
         self.name               = """Server01"""
         self.motd               = """A PyChat Server"""
         self.passwd             = """""" #md5
         self.ip                 = "127.0.0.1"
-        self.port               =
+        self.port               = 1111
         self.max_clients        = 0
         self.clients_connected  = 0
         self.update_data()
@@ -81,3 +81,10 @@ class ServerInfos(object):
 
     def set_clients_connected(self,clients_connected):
     	self.clients_connected = clients_connected
+
+    def __str__(self):
+        out = """[INFO] Infos for server : """ + self.name
+        for e in self.data:
+            out += """\n   | """ + e + """ : """ + str(self.data[e])
+        out +="""\n"""
+        return out

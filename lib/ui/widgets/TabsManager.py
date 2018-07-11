@@ -45,10 +45,8 @@ class TabsManager(QWidget):
 
         # Add tabs
         self._init_home_tab()
-        for k in range(1, 10):
-            self._init_welcome_tab("Welcome"+str(k))
         self._updatetabs()
-        self._listtabs()
+        #self._listtabs()
         # Add tabs to widget
         self.layout.addWidget(self.tabsWidget)
         self.setLayout(self.layout)
@@ -93,12 +91,12 @@ class TabsManager(QWidget):
             del self.tabs[id]
         else :
             return -1
-        self._listtabs()
+        #self._listtabs()
         self._updatetabs()
 
     def _addTab(self):
         self._init_home_tab("Added "+str(len(self.tabs)))
-        self._listtabs()
+        #self._listtabs()
         self._updatetabs()
 
     @pyqtSlot()

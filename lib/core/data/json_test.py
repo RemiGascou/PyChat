@@ -1,8 +1,8 @@
 import json
 
 d = {
-    "a":"a",
-    "b":1
+    "a": "a",
+    "b": 1
 }
 
 print(d)

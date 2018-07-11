@@ -1,2 +1,2 @@
-from liib.core.data.ServerInfos import *
-from liib.core.data.UserInfos import *
+from lib.core.data.ServerInfos import *
+from lib.core.data.UserInfos import *

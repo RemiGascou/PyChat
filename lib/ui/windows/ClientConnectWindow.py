@@ -16,7 +16,8 @@ from PyQt5.QtCore import *
 
 class ClientConnectWindow(QWidget):
     def __init__(self, parent=None):
-        super().__init__()
+        print("[LOG] Parent of ClientConnectWindow", parent)
+        super(ClientConnectWindow, self).__init__()
         self._initUI()
         self.show()
 
@@ -45,9 +46,12 @@ class ClientConnectWindow(QWidget):
 
     @pyqtSlot()
     def submitConnect(self):
+        ip = self.entry_serverip.text()
+        if self.entry_serverip.text() == '...':
+            ip = ''
         data = {
             "pseudo" : self.entry_pseudo.text(),
-            "server_ip" : self.entry_serverip.text(),
+            "server_ip" : ip,
             "server_port" : self.entry_serverport.text(),
         }
         print(data)

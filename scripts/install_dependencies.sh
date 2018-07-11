@@ -6,5 +6,5 @@ if [ "$(id -u)" != "0" ]; then
 fi
 
 sudo -H python3 -m pip install --upgrade pip
-#sudo -H python3 -m pip install PyQT5
+sudo -H python3 -m pip install PyQt5
 sudo apt-get install python3-pyqt5
