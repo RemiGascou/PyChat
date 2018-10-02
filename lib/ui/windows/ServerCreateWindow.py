@@ -9,7 +9,11 @@ Last edited: July 2018
 """
 
 import sys
-from lib.core import PyChatInfos
+from lib.core import *
+
+from lib.core.data.ServerInfos import *
+from lib.core.server.Server import *
+
 from PyQt5.QtWidgets import *
 from PyQt5.QtGui import *
 from PyQt5.QtCore import *
@@ -19,12 +23,12 @@ class ServerCreateWindow(QWidget):
         print("[LOG] Parent of ServerCreateWindow", parent)
         super(ServerCreateWindow, self).__init__()
         self.setWindowTitle('Create Server')
-        self.setGeometry(300, 300, 300, 175)
+        #self.setGeometry(300, 300, 300, 175)
+        self.setFixedSize(300, 175)
         self._initUI()
         self.show()
 
     def _initUI(self):
-
         #form
         self.formWidget = QWidget(self)
         self.formlayout = QFormLayout()
@@ -43,19 +47,30 @@ class ServerCreateWindow(QWidget):
         #end form
 
         self.submitbutton = QPushButton("Create Server", self)
+        self.submitbutton.clicked.connect(self.submitCreate)
         self.layout = QGridLayout()
         self.layout.addWidget(self.formWidget, 0, 0)
         self.layout.addWidget(self.submitbutton, 1, 0)
         self.setLayout(self.layout)
 
+    def keyPressEvent(self, event):
+        if event.key() == Qt.Key_Return:
+            self.submitCreate()
+            
     @pyqtSlot()
     def submitCreate(self):
-        data = {
-            "server_name": str(self.entry_server_name.get()),
-            "server_port": str(self.entry_server_port.get()),
-            "server_password": str(self.entry_server_password.get())
-        }
-        print(data)
+        si = ServerInfos()
+        if len(self.entry_server_name.text()) > 0 and self.entry_server_name.text().isalnum():
+            si.set_name(self.entry_server_name.text())
+        if len(self.entry_server_port.text()) > 0 and self.entry_server_port.text().isnum():
+            si.set_port(self.entry_server_port.text())
+        if len(self.entry_server_password.text()) > 0 and self.entry_server_password.text().isalnum():
+            si.set_password(self.entry_server_password.text())
+        print(si)
+        serverthread = Server(si)
+        serverthread.start()
+        self.destroy()
+
 
     @pyqtSlot()
     def _checkbox_password_Event(self):

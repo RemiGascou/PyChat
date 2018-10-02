@@ -15,7 +15,7 @@ class ServerInfos():
         super(ServerInfos, self).__init__()
         self.name               = """Server01"""
         self.motd               = """A PyChat Server"""
-        self.passwd             = """""" #md5
+        self.password             = """""" #md5
         self.ip                 = "127.0.0.1"
         self.port               = 1111
         self.max_clients        = 0
@@ -25,7 +25,7 @@ class ServerInfos():
     def update_data(self):
         self.data = {
             "name": self.name,
-            "passwd": self.passwd,
+            "password": self.password,
             "ip": self.ip,
             "port": self.port,
             "max_clients": self.max_clients,
@@ -52,11 +52,11 @@ class ServerInfos():
     def set_name(self,name):
     	self.name = name
 
-    def get_passwd(self):
-    	return self.passwd
+    def get_password(self):
+    	return self.password
 
-    def set_passwd(self,passwd):
-    	self.passwd = passwd
+    def set_password(self,password):
+    	self.password = password
 
     def get_ip(self):
     	return self.ip
@@ -83,7 +83,7 @@ class ServerInfos():
     	self.clients_connected = clients_connected
 
     def __str__(self):
-        out = """[INFO] Infos for server : """ + self.name
+        out = """[INFO] Infos for server : """ + self.name
         for e in self.data:
             out += """\n   | """ + e + """ : """ + str(self.data[e])
         out +="""\n"""

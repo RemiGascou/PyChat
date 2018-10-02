@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 import socket
 from threading import *
 from lib.core.data import *
@@ -42,6 +44,6 @@ class Server(Thread):
 
 if __name__ == """__main__""":
     si = ServerInfos()
-    serverthread = Server(si)
+    #serverthread = Server(si)
     print(si)
-    serverthread.start()
+    #serverthread.start()

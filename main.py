@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 import os, sys
 from PyQt5.QtWidgets import *
 from PyQt5.QtGui import *
