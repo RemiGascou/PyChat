@@ -104,6 +104,14 @@ class TabsManager(QWidget):
         print("Clicked !")
         self._deteteTabById(1)
 
+    @pyqtSlot()
+    def create_chatbox_tab(self):
+        self.chatbox_w = ChatBoxWidget()
+        tabdata = {
+            "object": self.chatbox_w,
+            "title": title
+        }
+        self.tabs.append(tabdata)
 
     def tabCloseRequested(self,index):
         print("tabCloseRequested !")

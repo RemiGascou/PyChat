@@ -105,6 +105,10 @@ class PyChatApp(QMainWindow):
     def testEvent(self):
         self.tabsmanager.on_click_close_tab()
 
+    @pyqtSlot()
+    def testEvent_cb(self):
+        self.tabsmanager.create_chatbox_tab()
+
 if __name__ == '__main__':
     app = QApplication(sys.argv)
     ex = PyChatApp()

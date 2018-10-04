@@ -32,7 +32,7 @@ class BroadcastListener(Thread):
 
 if __name__ == """__main__""":
     print("Broadcast from server :")
-    b = BroadcastListener("localhost", 1111)
+    b = BroadcastListener("localhost", 1112)
     b.start()
     running = True
     while running:

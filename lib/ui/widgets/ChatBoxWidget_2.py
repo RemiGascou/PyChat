@@ -18,9 +18,39 @@ class App(QMainWindow):
         self.setCentralWidget(self.chatwidget)
         self.show()
 
+import socket
+import time
+from threading import *
+
+class BroadcastListener(Thread):
+    def __init__(self, output_w, ip:str, port:int):
+        Thread.__init__(self)
+        self.output_w = output_w
+        self.ip      = ip
+        self.port    = port
+        self.listening = False
+        self.socket  = None
+        #output_w.appendPlainText("[LOG] Listening thread %s %s" % (self.ip, self.port, ))
+
+    def run(self):
+        self.listening = True
+        self.socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        self.socket.connect((self.ip, self.port)) #try catch
+        self.output_w.appendPlainText("Connected to : " + self.ip + "\n")
+        while(self.listening):
+            r = self.socket.recv(2048)
+            if len(r) != 0 : 
+                if str(r.decode("utf-8")).split(" ")[1] == "/exit": self.listening = False
+                else : self.output_w.appendPlainText(str(r.decode("utf-8")))
+        self.output_w.appendPlainText("Disconnected.")
+
+    def request_stop(self):
+        self.listening = False
+
 class InputBoxWidget(QWidget):
     def __init__(self, parent):
         super(InputBoxWidget, self).__init__(parent)
+        self.parent = parent
         self._initUI()
         self.show()
 
@@ -33,6 +63,7 @@ class InputBoxWidget(QWidget):
         self.textfield = QPlainTextEdit(self)
         glayout.addWidget(self.textfield, 1, 1)
         self.sendbutton = QPushButton('Send')
+        self.sendbutton.clicked.connect(self.parent.sendMessage)
         
         glayout.addWidget(self.sendbutton,1,2)
 
@@ -42,9 +73,6 @@ class InputBoxWidget(QWidget):
         self.setStyleSheet(stylesheet)
         self.setLayout(glayout)
 
-    @pyqtSlot()
-    def getText(self):
-        self.textfield
 
 
 class ChatBoxWidget(QWidget):
@@ -58,6 +86,7 @@ class ChatBoxWidget(QWidget):
         #EndLoad
         self.chatbox = None
         self._initUI()
+        self._initConnect()
         self.show()
 
     def _initUI(self):
@@ -67,24 +96,28 @@ class ChatBoxWidget(QWidget):
         glayout.setRowStretch(2, 1)
         self.chatbox = QPlainTextEdit(parent=self)
         self.messageinbox = InputBoxWidget(parent=self)
-
         glayout.addWidget(self.chatbox, 1, 1)
         glayout.addWidget(self.messageinbox,2,1)
-        for _ in range(20):
-            self.chatbox.appendHtml("<b>Heyyy ! Line : </b>" + str(_))
-        self.chatbox.appendHtml("Smiley test ! &#9762; &#9749;")
-
         self.setLayout(glayout)
-
+        
+    def _initConnect(self):
+        self.b = BroadcastListener(self.chatbox, "localhost", 1111)
+        self.b.start()
 
     @pyqtSlot()
-    def addText(self):
-        self.chatbox.appendHtml("Smiley test ! &#9762; &#9749;")
+    def sendMessage(self):
+        msg = self.messageinbox.textfield.toPlainText()
+        self.b.socket.send(bytes("[Client2] " + msg, 'utf-8'))
+        print("Got :",msg)
+        self.messageinbox.textfield.clear()
 
+    @pyqtSlot()
+    def addText(self, text):
+        self.chatbox.appendPlainText(text)
+    
+    @pyqtSlot()
     def addHTML(self, htmltext):
         self.chatbox.appendHtml(htmltext)
-
-
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)
