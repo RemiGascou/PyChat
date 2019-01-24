@@ -15,12 +15,14 @@ class TestUI(object):
 
     def test(self):
         print("\x1b[1m" + " Testing UI ".center(80, "-") + "\x1b[0m")
-
-        self.tc.test("PyChat main UI", self._test_AppUI)
-        self.tc.test("AboutWindow", self._test_AboutWindow)
-        self.tc.test("DebugWindow", self._test_DebugWindow)
-        self.tc.test("ClientConnectWindow", self._test_ClientConnectWindow)
-        self.tc.test("ServerCreateWindow", self._test_ServerCreateWindow)
+        if self.tc.xdisplay :
+            self.tc.test("PyChat main UI", self._test_AppUI)
+            self.tc.test("AboutWindow", self._test_AboutWindow)
+            self.tc.test("DebugWindow", self._test_DebugWindow)
+            self.tc.test("ClientConnectWindow", self._test_ClientConnectWindow)
+            self.tc.test("ServerCreateWindow", self._test_ServerCreateWindow)
+        else :
+            self.tc.test("No X display found", self._test_pass)
 
     def _test_AppUI(self):
         passed = True
@@ -70,4 +72,8 @@ class TestUI(object):
             ex.close()
         except Exception:
             passed = False
+        return passed
+
+    def _test_pass(self):
+        passed = True
         return passed
