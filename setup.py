@@ -12,8 +12,8 @@ setup(
     license      = 'GPL2',
     packages     = [
         'PyChat',
-        'PyChat/core',
-        'PyChat/ui'
+        'PyChat/lib/core',
+        'PyChat/lib/ui'
     ],
     zip_safe     = False
 )
