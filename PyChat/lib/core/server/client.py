@@ -28,17 +28,20 @@ class BroadcastListener(Thread):
 
     def request_stop(self):
         self.listening = False
+    
+    def sendMessage(self, s):
+        self.socket.send(bytes(s, 'utf-8'))
 
 
 if __name__ == """__main__""":
     print("Broadcast from server :")
-    b = BroadcastListener("localhost", 1112)
+    b = BroadcastListener("localhost", 1111)
     b.start()
     running = True
     while running:
         rin = input("[>] ")
-        b.socket.send(bytes("[Client2] " + rin, 'utf-8'))
+        b.sendMessage("[Client] " + rin)
         if rin == "/exit":
             running = False
-            b.socket.send(bytes("[_DisconnectRequest_]", 'utf-8'))
+            b.sendMessage("[_DisconnectRequest_]")
     b.join()

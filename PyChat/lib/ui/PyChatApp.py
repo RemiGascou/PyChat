@@ -8,7 +8,7 @@ from PyQt5.QtCore import *
 
 class PyChatApp(QMainWindow):
     def __init__(self, parent=None):
-        print("[LOG] Parent of PyChatApp", parent)
+        #print("[LOG] Parent of PyChatApp", parent)
         super(PyChatApp, self).__init__()
         self.title  = PyChatInfos.get_name() + " " + PyChatInfos.get_version()
         self.left   = 10
