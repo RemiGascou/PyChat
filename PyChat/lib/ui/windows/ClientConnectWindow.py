@@ -16,7 +16,7 @@ from PyQt5.QtCore import *
 
 class ClientConnectWindow(QWidget):
     def __init__(self, parent=None):
-        print("[LOG] Parent of ClientConnectWindow", parent)
+        #print("[LOG] Parent of ClientConnectWindow", parent)
         super(ClientConnectWindow, self).__init__()
         self._initUI()
         self.show()

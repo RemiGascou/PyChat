@@ -34,7 +34,7 @@ class TabsManager(QWidget):
         self.tabsWidget = QTabWidget()
         self.tabsWidget.resize(300,200)
         #Load Stylesheet from "TabsManager.css"
-        f = open("lib/ui/widgets/styles/TabsManager.css",'r')
+        f = open("PyChat/lib/ui/widgets/styles/TabsManager.css",'r')
         stylesheet = "".join(f.readlines())
         f.close()
         #EndLoad

@@ -20,7 +20,7 @@ from PyQt5.QtCore import *
 
 class ServerCreateWindow(QWidget):
     def __init__(self, parent=None):
-        print("[LOG] Parent of ServerCreateWindow", parent)
+        #print("[LOG] Parent of ServerCreateWindow", parent)
         super(ServerCreateWindow, self).__init__()
         self.setWindowTitle('Create Server')
         #self.setGeometry(300, 300, 300, 175)
@@ -56,7 +56,7 @@ class ServerCreateWindow(QWidget):
     def keyPressEvent(self, event):
         if event.key() == Qt.Key_Return:
             self.submitCreate()
-            
+
     @pyqtSlot()
     def submitCreate(self):
         si = ServerInfos()

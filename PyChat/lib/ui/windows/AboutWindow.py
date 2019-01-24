@@ -17,7 +17,7 @@ from PyQt5.QtCore import *
 
 class AboutWindow(QWidget):
     def __init__(self, parent=None):
-        print("[LOG] Parent of AboutWindow", parent)
+        #print("[LOG] Parent of AboutWindow", parent)
         super(AboutWindow, self).__init__()
         self.title = 'AboutWindow'
         self.left   = 0

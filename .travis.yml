@@ -1,8 +1,6 @@
 language: python
 python:
     - '3.6.7'
-#before_install:
-#    sudo apt-get install python-pyqt5
 install:
   - pip install -r requirements.txt
   - pip install .

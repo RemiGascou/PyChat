@@ -16,7 +16,7 @@ from PyQt5.QtCore import *
 
 class DebugWindow(QWidget):
     def __init__(self, parent=None):
-        print("[LOG] Parent of DebugWindow", parent)
+        #print("[LOG] Parent of DebugWindow", parent)
         super(DebugWindow, self).__init__()
         self.setGeometry(300, 300, 300, 100)
         self.setWindowTitle('About')
